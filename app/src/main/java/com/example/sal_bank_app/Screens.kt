@@ -5,5 +5,6 @@ sealed class Screens(val route :String){
 
     object Cards :Screens("Cards")
     object Wallet :Screens("Wallet")
+    object popup :Screens("popup")
 
 }

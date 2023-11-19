@@ -72,5 +72,4 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     implementation ("androidx.navigation:navigation-compose:2.4.0-alpha10")
-
 }

@@ -218,14 +218,14 @@ fun SplashScreen(navController: NavController){
         Animatable(0f)
     }
     LaunchedEffect(key1 = true, ){
-        scale.animateTo(targetValue = 0.6f, animationSpec = tween(
+        scale.animateTo(targetValue = 0.7fff, animationSpec = tween(
             durationMillis = 500,
             easing = {
                 OvershootInterpolator(2f).getInterpolation(it)
             }
         )
         )
-        delay(3000L)
+        delay(100L)
         navController.navigate("main_screen")
     }
     Box(
