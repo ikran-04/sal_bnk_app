@@ -3,6 +3,7 @@ package com.example.sal_bank_app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,7 +20,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AccountBox
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -31,11 +31,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sal_bank_app.ui.theme.Sal_bank_appTheme
@@ -79,53 +79,61 @@ fun HomeScreen(){
             Icon(Icons.Outlined.Notifications, contentDescription =null )
         }
 
-        Column (
-            modifier = Modifier
-//                .padding(top = 24.dp)
-                .background(Color(0xFF185DAB))
-                .height(200.dp),
 
+
+
+        Box(
+            modifier = Modifier.height(200.dp)
         ) {
-            Column (
-
-                modifier = Modifier
-                    .padding(24.dp)
-                    .fillMaxHeight(),
-                horizontalAlignment= Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceBetween,
+            Image(painter = painterResource(id = R.drawable.blance_bg),
+                contentDescription = null,
+                contentScale = ContentScale.Crop
+            )
+            Column(
+//                modifier = Modifier.fillMaxSize()
             ) {
+                Column (
 
-
-                Row (
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    modifier = Modifier
+                        .padding(24.dp)
+                        .fillMaxHeight()
+                    ,
+                    horizontalAlignment= Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Column {
-                        Text(text = "Balance!", fontSize = 12.sp , fontWeight = FontWeight.Light,color = Color.White)
-                        Text(text = "$120.00" , fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
+
+
+                    Row (
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Column {
+                            Text(text = "Balance!", fontSize = 12.sp , fontWeight = FontWeight.Light,color = Color.White)
+                            Text(text = "$120.00" , fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                        }
+                        Row (
+                            horizontalArrangement = Arrangement.spacedBy(5.dp)
+                        ) {
+                            Icon(painter = painterResource(id = R.drawable.noto_coin), contentDescription = null, tint = Color.Unspecified)
+                            Text(text = "9.500" ,  style = TextStyle(
+                                fontSize = 15.sp,
+                                color = Color.White,
+                            ),)
+                        }
                     }
                     Row (
-                        horizontalArrangement = Arrangement.spacedBy(5.dp)
-                    ) {
-                        Icon(painter = painterResource(id = R.drawable.noto_coin), contentDescription = null, tint = Color.Unspecified)
-                        Text(text = "9.500" ,  style = TextStyle(
-                            fontSize = 15.sp,
-                            color = Color.White,
-                        ),)
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ){
+                        IconBox(icon = painterResource(id = R.drawable.wallett), size = 50)
+                        IconBox(icon = painterResource(id = R.drawable.transfer), size = 50)
+                        IconBox(icon = painterResource(id = R.drawable.atm), size = 50)
+                        IconBox(icon = painterResource(id = R.drawable.wallett), size = 50)
                     }
                 }
-                Row (
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ){
-                    IconBox(icon = painterResource(id = R.drawable.wallett))
-                    IconBox(icon = painterResource(id = R.drawable.transfer))
-                    IconBox(icon = painterResource(id = R.drawable.atm))
-                    IconBox(icon = painterResource(id = R.drawable.wallett))
-                }
             }
-            
         }
+
 
         Row (
             modifier = Modifier
@@ -137,7 +145,6 @@ fun HomeScreen(){
             Text(text = "Statement"  ,fontSize = 16.sp , fontWeight = FontWeight.Bold)
             Box(modifier = Modifier
                 .wrapContentSize()
-                .padding(vertical = 10.dp, horizontal = 10.dp)
                 .clip(RoundedCornerShape(20.dp))) {
                 Text(
                     text = "view all",
@@ -202,6 +209,8 @@ fun HomeScreen(){
                 Transaction(icon = painterResource(id = R.drawable.shopify))
                 Transaction(icon = painterResource(id = R.drawable.shopify))
                 Transaction(icon = painterResource(id = R.drawable.shopify))
+                Transaction(icon = painterResource(id = R.drawable.shopify))
+                Transaction(icon = painterResource(id = R.drawable.shopify))
 
             }
         }
@@ -212,7 +221,7 @@ fun HomeScreen(){
 
 
 @Composable
-fun IconBox(lable:String="", icon: Painter){
+fun IconBox(lable:String="", icon: Painter, size: Int){
     Column (
         horizontalAlignment = Alignment.CenterHorizontally
     ){
@@ -221,7 +230,7 @@ fun IconBox(lable:String="", icon: Painter){
             Box(
                 modifier = Modifier
                     // Match the size of the icon
-                    .size(50.dp)
+                    .size(size.toInt().dp)
                     // Clip the box to a circle shape
                     .clip(RoundedCornerShape(10.dp))
 

@@ -120,7 +120,7 @@ fun MainScreen(){
             unselectedIcon = painterResource(id = R.drawable.savings),
         ),
         BottomNavigationItem(
-            title = "Wallet",
+            title = "Loans",
 
             selectedIcon = painterResource(id = R.drawable.wallett),
             unselectedIcon = painterResource(id = R.drawable.wallett),
@@ -139,10 +139,6 @@ fun MainScreen(){
         bottomBar = {
             NavigationBar(
                 containerColor = Color.White,
-                modifier = Modifier
-                    .padding(bottom = 10.dp)
-
-
             ) {
 
                 items.forEachIndexed { index, item ->
@@ -206,6 +202,7 @@ fun MainScreen(){
 
             composable(Screens.Home.route) { HomeScreen() }
             composable(Screens.Cards.route) { CardsScreen() }
+            composable(Screens.Loans.route) { LoansScreen() }
 
         }
     }
@@ -218,7 +215,7 @@ fun SplashScreen(navController: NavController){
         Animatable(0f)
     }
     LaunchedEffect(key1 = true, ){
-        scale.animateTo(targetValue = 0.7fff, animationSpec = tween(
+        scale.animateTo(targetValue = 0.7f, animationSpec = tween(
             durationMillis = 500,
             easing = {
                 OvershootInterpolator(2f).getInterpolation(it)
@@ -233,6 +230,7 @@ fun SplashScreen(navController: NavController){
         modifier = Modifier.fillMaxSize()
 
     ){
+        Image(painter = painterResource(id = R.drawable.background), contentDescription = null)
         Image(painter = painterResource(id = R.drawable.foreground), contentDescription = "logo", modifier = Modifier.scale(scale.value))
 
     }

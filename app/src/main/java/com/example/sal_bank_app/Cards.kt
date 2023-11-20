@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
@@ -45,6 +46,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -133,20 +135,21 @@ fun CardsSecoundscreen(){
                     pageCount = cards.size,
                     state = pagerState,
                     key = { cards[it] },
-                    pageSize = PageSize.Fixed(330.dp)
+                    pageSpacing = 20.dp
 
                 )
 
                 {index ->
 
-                    Column {
+                    Column(
+                    ) {
                         Image(
                             painter = painterResource(id = cards[index]),
                             contentDescription = null,
-                            //                            contentScale = ContentScale.Crop ,
+                            contentScale = ContentScale.FillWidth ,
                             modifier = Modifier
 //                                      .fillMaxSize()
-                                .padding(end = 20.dp)
+//                                .padding(end = 20.dp)
 
                         )
                     }
@@ -167,21 +170,29 @@ fun CardsSecoundscreen(){
                 .verticalScroll(scrollState)
         ) {
 
-            Row (
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(24.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+            Column (
+                verticalArrangement = Arrangement.spacedBy(15.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
 
-            ){
-                Text(text = "reset pin code" , fontSize = 16.sp, fontWeight = FontWeight.Medium)
-                Icon(painter = painterResource(id = R.drawable.right), contentDescription =null )
-            }
+                    horizontalArrangement = Arrangement.SpaceBetween
+
+                ) {
+                    Text(text = "reset pin code", fontSize = 16.sp, fontWeight = FontWeight.Medium)
+                    Icon(
+                        painter = painterResource(id = R.drawable.right),
+                        contentDescription = null
+                    )
+                }
             CardSetting("Freeze Card")
             Divider(color = Color(0xFFE9E9E9), thickness = .5.dp)
             CardSetting("Contactless Payment")
             CardSetting("Online Payment")
             CardSetting("ATM Withdraws")
+            }
+
 
         }
     }
@@ -194,17 +205,9 @@ fun CardSetting(text:String){
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .clip(
-                RoundedCornerShape(5.dp)
-            )
-            .background(Color.White)
-            .padding(vertical = 0.dp, horizontal = 20.dp)
     ){
 
         Row (
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-            verticalAlignment = Alignment.CenterVertically
-
         ){
 
 
@@ -215,6 +218,7 @@ fun CardSetting(text:String){
 
         var checked by remember { mutableStateOf(true) }
         Switch(
+
             checked = checked,
             onCheckedChange = { checked = it },
             colors = SwitchDefaults.colors(
@@ -223,6 +227,7 @@ fun CardSetting(text:String){
                 checkedTrackColor = Color( 0xFF185DAB),
                 uncheckedTrackColor = Color(0xFFF1F1F1)
             )
+
         )
     }
 }

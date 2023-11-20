@@ -2,4 +2,5 @@
     <string name="app_name">sal_bank_app</string>
     <string name="title_activity_home">Home</string>
     <string name="title_activity_cards">Cards</string>
+    <string name="title_activity_loans">Loans</string>
 </resources>
