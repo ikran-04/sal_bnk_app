@@ -1,30 +1,47 @@
 package com.example.sal_bank_app
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,7 +53,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.sal_bank_app.ui.theme.Sal_bank_appTheme
+import kotlin.math.roundToInt
 
 class Loans : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,21 +76,34 @@ class Loans : ComponentActivity() {
         }
     }
 }
-
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun LoansScreen(){
-    val scrollState = rememberScrollState ()
-Column {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "ApllyLoan") {
+        composable("ApllyLoan") { ApllyLoan(navController) }
+        composable("LoanCalculator") { LoanCalculatorScreen(navController) }
+    }
 
-    Box(
-        modifier = Modifier
-            .height(500.dp)
-            .fillMaxWidth()
-    ) {
-        Image(painter = painterResource(id = R.drawable.loan_bg),
-            contentDescription = null,
-            contentScale = ContentScale.FillBounds
-        )
+
+}
+
+
+@Composable
+fun ApllyLoan(navController: NavController){
+    val scrollState = rememberScrollState ()
+
+    Column {
+
+        Box(
+            modifier = Modifier
+                .height(500.dp)
+                .fillMaxWidth()
+        ) {
+            Image(painter = painterResource(id = R.drawable.loan_bg),
+                contentDescription = null,
+                contentScale = ContentScale.FillBounds
+            )
             Column (
 
                 modifier = Modifier
@@ -84,19 +119,19 @@ Column {
                     verticalArrangement = Arrangement.spacedBy(40.dp)
                 ){
 
-                        Column {
-                            Text(
-                                text = "un paid Loans!",
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.Light,
-                                color = Color.White
-                            )
-                            Text(
-                                text = "$120.00",
-                                fontSize = 38.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
+                    Column {
+                        Text(
+                            text = "un paid Loans!",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Light,
+                            color = Color.White
+                        )
+                        Text(
+                            text = "$120.00",
+                            fontSize = 38.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
 
 
                     }
@@ -114,7 +149,10 @@ Column {
                             IconBox(icon = painterResource(id = R.drawable.atm), size = 70)
                         }
                         Button(
-                            onClick = { /* do something */ },
+                            onClick = {
+
+                                navController.navigate("LoanCalculator")
+                            },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = Color(0xFF011F41), // dark blue
                                 contentColor = Color.White // white
@@ -132,38 +170,34 @@ Column {
 
             }
 
-    }
-    // History
-    Column (  modifier = Modifier
-        .fillMaxSize()
-        .padding(top = 20.dp)) {
-        Column(
-            modifier = Modifier
+        }
+        // History
+        Column (  modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 20.dp)) {
+            Column(
+                modifier = Modifier
 //                .fillMaxWidth()
-                .padding(horizontal = 24.dp , vertical = 10.dp),
-        ) {
+                    .padding(horizontal = 24.dp , vertical = 10.dp),
+            ) {
 
-            Text(text = "History", fontSize = 16.sp,)
-        }
-        Column (
-            modifier = Modifier
-                .verticalScroll(scrollState)
+                Text(text = "History", fontSize = 16.sp,)
+            }
+            Column (
+                modifier = Modifier
+                    .verticalScroll(scrollState)
 
-        ){
-            loan(icon = painterResource(id = R.drawable.shopify))
-            loan(icon = painterResource(id = R.drawable.shopify))
-            loan(icon = painterResource(id = R.drawable.shopify))
+            ){
+                loan(icon = painterResource(id = R.drawable.shopify))
+                loan(icon = painterResource(id = R.drawable.shopify))
+                loan(icon = painterResource(id = R.drawable.shopify))
 
 
+            }
         }
     }
-}
-
 
 }
-
-
-
 
 @Composable
 fun loan(icon: Painter){
@@ -228,7 +262,169 @@ fun loan(icon: Painter){
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoanCalculatorScreen(){
+fun LoanCalculatorScreen(navController: NavController){
+    Column {
+        Row (
+            modifier = Modifier
+                .padding(24.dp),
+            horizontalArrangement = Arrangement.spacedBy(40.dp, alignment = Alignment.CenterHorizontally)
+        ){
+           Button(onClick = { navController.navigate("ApllyLoan") },
+                   colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
+           ) {
 
+               Image(painter = painterResource(id = R.drawable.left_arrow), contentDescription = null )
+           }
+            Column (
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Text(
+                    text = "Loan Calculator",
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold,
+                )
+                Text(
+                    text = "How much do you want",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Light,
+                    color = Color.Gray
+
+                )
+            }
+        }
+
+        Row (
+            modifier = Modifier
+                .padding(24.dp),
+            horizontalArrangement = Arrangement.spacedBy(20.dp)
+        ){
+            var text by remember { mutableStateOf("\$3500.00") }
+
+            OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth(.5f),
+                value = text,
+                onValueChange = {
+                    text = it
+                },
+                label = {
+                    Text("Amount")
+                }
+            )
+            OutlinedTextField(
+
+                value = "36 Months",
+                onValueChange = {
+                    text = it
+                },
+                label = {
+                    Text("Duration")
+                }
+            )
+
+        }
+
+
+        Row (
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            NumberList()
+            Divider(color = Color.Gray, modifier = Modifier.width(.5.dp).fillMaxHeight())
+            MonthsList()
+        }
+
+
+
+    }
+}
+
+@Composable
+fun NumberList() {
+    Column (
+        modifier = Modifier
+            .fillMaxHeight()
+            .padding(bottom = 50.dp),
+        verticalArrangement = Arrangement.Center
+    ){
+        LazyColumn {
+            items(10) { index ->
+                var number = 10_000 - index * 1_000
+                Row(
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(5.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Divider(
+                        color = Color(0xFFE9E9E9),
+                        thickness = 2.dp,
+                        modifier = Modifier.width(24.dp)
+                    )
+                    Text(
+                        text = "${number / 1000}k",
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Medium,
+                        modifier = Modifier.padding(8.dp)
+                    )
+
+                }
+                Divider(
+                    color = Color(0xFFE9E9E9),
+                    thickness = 2.dp,
+                    modifier = Modifier.width(14.dp)
+                )
+
+
+            }
+        }
+    }
+}
+
+
+@Composable
+fun MonthsList() {
+    Column (
+        modifier = Modifier
+            .fillMaxHeight()
+            .padding(bottom = 50.dp),
+        verticalArrangement = Arrangement.Center,
+    ){
+        LazyColumn (
+            horizontalAlignment = Alignment.End
+        ) {
+            items(5) { index ->
+                var month = 12 + index * 6
+                Row(
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(5.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+
+                    Text(
+                        text = "${month } Months",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                    Divider(
+                        color = Color(0xFFE9E9E9),
+                        thickness = 2.dp,
+                        modifier = Modifier.width(24.dp)
+                    )
+
+                }
+                Divider(
+                    color = Color(0xFFE9E9E9),
+                    thickness = 2.dp,
+                    modifier = Modifier.width(14.dp)
+                )
+
+
+            }
+        }
+    }
 }
