@@ -102,7 +102,10 @@ fun HomeScreen(navController: NavController){
                 Text(text = "John Doe!" ,fontWeight = FontWeight.Bold)
             }
 
-            Icon(Icons.Outlined.Notifications, contentDescription =null )
+
+                Icon(Icons.Outlined.Notifications,
+                    contentDescription =null ,
+                    modifier = Modifier.clickable{ navController.navigate("Notifications") })
         }
 
 
@@ -353,6 +356,7 @@ fun Wallet(navController: NavController){
             CustomTextField(vlue ="description")
 
             Button(
+
                 onClick = {
 
                     navController.navigate("ApprovedLoan")
@@ -366,6 +370,7 @@ fun Wallet(navController: NavController){
                     .fillMaxWidth()
                     .height(52.dp)
             ) {
+
                 Text("Send", fontSize = 18.sp)
             }
 
@@ -381,7 +386,9 @@ fun IconBox(lable:String="", icon: Painter,bgClr:Color=Color(0xFF011F41), size: 
 
 
     ){
-        Box(modifier = Modifier.wrapContentSize().clickable {    navController.navigate(route) }) {
+        Box(modifier = Modifier
+            .wrapContentSize()
+            .clickable { navController.navigate(route) }) {
             // Create another box that covers the icon
             Box(
                 modifier = Modifier

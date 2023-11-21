@@ -90,6 +90,7 @@ fun Navigation(){
         composable("splash_screen"){
             SplashScreen(navController=navController)
         }
+
         composable("cards_screen"){
             PopUpScreen(navController=navController)
         }
@@ -122,7 +123,7 @@ fun MainScreen(){
 //                        badgeCount = 4
         ),
         BottomNavigationItem(
-            title = "Savings",
+            title = "Finances",
 
             selectedIcon = painterResource(id = R.drawable.savings,),
             unselectedIcon = painterResource(id = R.drawable.savings),
@@ -134,7 +135,7 @@ fun MainScreen(){
             unselectedIcon = painterResource(id = R.drawable.wallett),
         ),
         BottomNavigationItem(
-            title = "Setings",
+            title = "Notifications",
 
             selectedIcon = painterResource(id = R.drawable.settinggs),
             unselectedIcon = painterResource(id = R.drawable.settinggs),
@@ -149,7 +150,7 @@ fun MainScreen(){
             val currentRoute = navBackStackEntry?.destination?.route
 
 
-            if (currentRoute !=  Screens.Loans.route && currentRoute != Screens.cards_screen.route ) {
+            if (currentRoute !=  Screens.Loans.route && currentRoute != Screens.cards_screen.route  && currentRoute != Screens.Finances.route && currentRoute != Screens.Notifications.route ) {
                 NavigationBar(
                     containerColor = Color.White,
                 ) {
@@ -217,6 +218,11 @@ fun MainScreen(){
             composable(Screens.Home.route) { HomeScreee() }
             composable(Screens.Cards.route) { CardsScreen() }
             composable(Screens.Loans.route) { LoansScreen() }
+            composable(Screens.Savings.route) { SavingsScreen() }
+            composable(Screens.Notifications.route) { NotificationsScreen() }
+            composable("Finances"){
+                FinancesCard(navController=navController)
+            }
 
         }
     }
