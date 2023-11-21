@@ -2,6 +2,7 @@ package com.example.sal_bank_app
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
@@ -46,14 +47,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextPainter
@@ -62,9 +70,12 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDirection
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -73,8 +84,11 @@ import com.example.sal_bank_app.ui.theme.Sal_bank_appTheme
 import kotlin.math.roundToInt
 
 class Loans : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
         setContent {
             Sal_bank_appTheme {
                 // A surface container using the 'background' color from the theme
@@ -95,6 +109,7 @@ fun LoansScreen(){
     NavHost(navController = navController, startDestination = "ApllyLoan") {
         composable("ApllyLoan") { ApllyLoan(navController) }
         composable("LoanCalculator") { LoanCalculatorScreen(navController) }
+        composable("ApprovedLoan") { ApprovedLoan(navController) }
     }
 
 
@@ -156,9 +171,9 @@ fun ApllyLoan(navController: NavController){
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceAround,
                         ) {
-                            IconBox(icon = painterResource(id = R.drawable.wallett), size = 70)
-                            IconBox(icon = painterResource(id = R.drawable.transfer), size = 70)
-                            IconBox(icon = painterResource(id = R.drawable.atm), size = 70)
+                            IconBox(icon = painterResource(id = R.drawable.wallett), size = 70 , route = "",navController = navController)
+                            IconBox(icon = painterResource(id = R.drawable.transfer), size = 70, route = "",navController = navController)
+                            IconBox(icon = painterResource(id = R.drawable.atm), size = 70, route = "",navController = navController)
                         }
                         Button(
                             onClick = {
@@ -281,7 +296,7 @@ fun LoanCalculatorScreen(navController: NavController){
         Row (
             modifier = Modifier
                 .padding(24.dp),
-            horizontalArrangement = Arrangement.spacedBy(20.dp, alignment = Alignment.CenterHorizontally)
+            horizontalArrangement = Arrangement.spacedBy(20.dp,)
         ){
            Button(onClick = { navController.navigate("ApllyLoan") },
                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
@@ -309,7 +324,7 @@ fun LoanCalculatorScreen(navController: NavController){
 
         Row (
             modifier = Modifier
-                .padding(24.dp),
+                .padding(horizontal = 24.dp),
             horizontalArrangement = Arrangement.spacedBy(20.dp)
         ){
             var text by remember { mutableStateOf("\$3500.00") }
@@ -341,7 +356,8 @@ fun LoanCalculatorScreen(navController: NavController){
 
         Row (
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .fillMaxHeight(.8f),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
            Column (
@@ -352,22 +368,201 @@ fun LoanCalculatorScreen(navController: NavController){
 
                Divider(color = Color.Gray, modifier = Modifier
                    .width(.5.dp)
-                   .fillMaxHeight())
+                   .fillMaxHeight()
+               )
 
             MonthsList()
         }
 
+        Column (
+            modifier = Modifier.padding(horizontal = 24.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ){
+            Row (
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column (
+                    verticalArrangement = Arrangement.spacedBy(2.dp)
+                ){
+                    Text(text = "monthly installments", fontSize = 10.sp , fontWeight = FontWeight.Light , color = Color.Gray)
+                    Text(text = "\$159.00" , fontSize = 20.sp , fontWeight = FontWeight.Bold)
+                }
 
+                Column (
+                    horizontalAlignment = Alignment.End,
+                    verticalArrangement = Arrangement.spacedBy(2.dp)
+                ){
+
+                    Text(text = "Total To Bay" , fontSize = 10.sp , fontWeight = FontWeight.Light , color = Color.Gray)
+                    Text(text = "4,000", fontSize = 20.sp , fontWeight = FontWeight.Bold)
+                }
+            }
+            Button(
+                onClick = {
+
+                    navController.navigate("ApprovedLoan")
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF185DAB), // dark blue
+                    contentColor = Color.White // white
+                ),
+                shape = RoundedCornerShape(10.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp)
+            ) {
+                Text("Continue", fontSize = 18.sp)
+            }
+        }
 
     }
 }
+
+@Composable
+fun ApprovedLoan(navController: NavController){
+
+    Column (
+        modifier = Modifier
+            .fillMaxHeight()
+            .fillMaxWidth()
+            .background(Color(0xFF185DAB)),
+
+    ) {
+        Column (
+            modifier = Modifier.padding(24.dp)
+        ) {
+            Button(onClick = { navController.navigate("LoanCalculator") },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.left_arr_white),
+                    contentDescription = null
+                )
+            }
+            Column (
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth(),
+                horizontalAlignment =Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(30.dp, alignment = Alignment.CenterVertically)
+
+            ){
+                Image(painter = painterResource(id = R.drawable.approved), contentDescription = null )
+                Text(text = "Congratualtions your loan \n have  is approved", color = Color.White , fontSize = 24.sp, textAlign = TextAlign.Center)
+                Text(text = "Below is your loan summary", fontSize = 10.sp, color = Color.White , textAlign = TextAlign.Center)
+                Column(
+                    Modifier
+                        .fillMaxWidth(.8f)
+                        .dashedBorder(1.dp, White, 8.dp),
+
+                    ) {
+                    Row (
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp)
+                ) {
+                    Column (
+                        verticalArrangement = Arrangement.spacedBy(10.dp),
+                    ){
+                       Column (
+                           horizontalAlignment = Alignment.CenterHorizontally,
+                           verticalArrangement = Arrangement.spacedBy(5.dp),
+                       ){
+                           Text(text = "loaan amount", fontSize = 10.sp , fontWeight = FontWeight.Light , color = Color.White)
+                           Text(text = "\$4,000" , fontSize = 20.sp , fontWeight = FontWeight.Bold, color = Color.White)
+                       }
+                        Column (
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(5.dp),
+                        ){
+                            Text(text = "monthly installment", fontSize = 10.sp , fontWeight = FontWeight.Light ,  color = Color.White)
+                            Text(text = "\$150.00" , fontSize = 20.sp , fontWeight = FontWeight.Bold, color = Color.White)
+                        }
+
+                    }
+
+                    Column (
+                        horizontalAlignment = Alignment.End,
+                        verticalArrangement = Arrangement.spacedBy(10.dp)
+                    ){
+
+                        Column (
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(5.dp),
+
+                        ){
+                            Text(text = "duration", fontSize = 10.sp , fontWeight = FontWeight.Light ,  color = Color.White)
+                            Text(text = "\$36 months" , fontSize = 20.sp , fontWeight = FontWeight.Bold, color = Color.White)
+                        }
+                        Column (
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(5.dp),
+                        ){
+                            Text(text = "next due date", fontSize = 10.sp , fontWeight = FontWeight.Light ,  color = Color.White)
+                            Text(text = "\$2/2/2222" , fontSize = 20.sp , fontWeight = FontWeight.Bold, color = Color.White)
+                        }
+                    }
+                }
+
+                }
+                Text(text = "sign the electronic agreement to \n receive the cash", fontSize = 14.sp, color = Color.White , textAlign = TextAlign.Center)
+             Column (
+                 verticalArrangement = Arrangement.spacedBy(10.dp)
+             ){
+                 Button(
+                     onClick = {
+
+                         navController.navigate("ApprovedLoan")
+                     },
+                     colors = ButtonDefaults.buttonColors(
+                         containerColor = Color(0xFF2E6CB1), // dark blue
+                         contentColor = Color.White // white
+                     ),
+                     shape = RoundedCornerShape(10.dp),
+                     modifier = Modifier
+                         .fillMaxWidth()
+                         .height(52.dp)
+                 ) {
+                     Text("john doe", fontSize = 18.sp)
+                 }
+                 Button(
+                     onClick = {
+
+                         navController.navigate("ApprovedLoan")
+                     },
+                     colors = ButtonDefaults.buttonColors(
+                         containerColor = Color.White, // dark blue
+                         contentColor = Color.Black // wh
+                     ),
+                     shape = RoundedCornerShape(10.dp),
+                     modifier = Modifier
+                         .fillMaxWidth()
+                         .height(52.dp)
+                 ) {
+                     Text("Continoe", fontSize = 18.sp)
+                 }
+             }
+
+            }
+
+
+        }
+
+
+    }
+
+}
+
 
 @Composable
 fun NumberList() {
     Column (
         modifier = Modifier
             .fillMaxHeight()
-            .padding(bottom = 50.dp),
+//            .padding(bottom = 50.dp)
+            ,
         verticalArrangement = Arrangement.Center
     ){
         LazyColumn {
@@ -392,7 +587,9 @@ fun NumberList() {
                                 text = "${number / 1000}k",
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Medium,
-                                modifier = Modifier.padding(8.dp).zIndex(10f)
+                                modifier = Modifier
+                                    .padding(8.dp)
+                                    .zIndex(10f)
 
                             )
 
@@ -430,7 +627,8 @@ fun MonthsList() {
     Column (
         modifier = Modifier
             .fillMaxHeight()
-            .padding(bottom = 50.dp),
+//            .padding(bottom = 50.dp)
+        ,
         verticalArrangement = Arrangement.Center,
     ){
         LazyColumn (
@@ -501,7 +699,7 @@ fun LineWithCircle() {
     // Define the size, color and text of the rectangle
     val rectWidth = 200f
     val rectHeight = 80f
-    val rectColor = Color(0xFFF8B98D)
+    val rectColor = Color(0xFF185DAB)
     val rectText = "Hello"
 
     // Use Canvas to draw custom shapes
@@ -584,16 +782,39 @@ fun LineWithCircle2() {
             center = lineStart,
             radius = circleRadius
         )
-        // Draw the rectangle using drawRect
-        drawRoundRect(
-            color = rectColor,
-            topLeft = rectCenterRight,
-            cornerRadius = CornerRadius(10f),
-            size = Size(rectWidth, rectHeight),
-        )
+//        // Draw the rectangle using drawRect
+//        drawRoundRect(
+//            color = rectColor,
+//            topLeft = rectCenterRight,
+//            cornerRadius = CornerRadius(10f),
+//            size = Size(rectWidth, rectHeight),
+//        )
 
 
     }
 }
 
+fun Modifier.dashedBorder(strokeWidth: Dp, color: Color, cornerRadiusDp: Dp) = composed(
+    factory = {
+        val density = LocalDensity.current
+        val strokeWidthPx = density.run { strokeWidth.toPx() }
+        val cornerRadiusPx = density.run { cornerRadiusDp.toPx() }
 
+        this.then(
+            Modifier.drawWithCache {
+                onDrawBehind {
+                    val stroke = Stroke(
+                        width = strokeWidthPx,
+                        pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
+                    )
+
+                    drawRoundRect(
+                        color = color,
+                        style = stroke,
+                        cornerRadius = CornerRadius(cornerRadiusPx)
+                    )
+                }
+            }
+        )
+    }
+)

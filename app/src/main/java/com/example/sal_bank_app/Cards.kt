@@ -58,6 +58,7 @@ import androidx.compose.ui.zIndex
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -73,13 +74,13 @@ class Cards : ComponentActivity() {
         setContent {
             Sal_bank_appTheme {
                 // A surface container using the 'background' color from the theme
+                val navController = rememberNavController()
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
-                    CardsScreen()
-
+                            CardsScreen()
                 }
             }
         }
@@ -88,8 +89,6 @@ class Cards : ComponentActivity() {
 
 @Composable
 fun CardsScreen(){
-    val navController = rememberNavController()
-    PopUpScreen()
     CardsSecoundscreen()
 
 }
@@ -234,51 +233,6 @@ fun CardSetting(text:String){
 
 
 
-@Composable
-fun PopUpScreen() {
 
-    var popUpShown by remember { mutableStateOf(false) }
-
-    @Composable
-    fun PopUpContent() {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-//                .align(Alignment.Center)
-                .background(Color(0xFF185DAB))
-                .padding(16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            Image(painter = painterResource(id = R.drawable.cards_img), contentDescription = "Logo")
-            Text(  modifier = Modifier
-
-                .padding(20.dp),text = "Track And Manage Your Portfolio", fontSize = 35.sp, textAlign = TextAlign.Center, color = Color.White, fontWeight = FontWeight.Black , lineHeight = 1.5.em)
-            Button(onClick = { popUpShown = false }) {
-                Text(text = "Get Started!")
-            }
-        }
-    }
-
-
-    LaunchedEffect(Unit) {
-        delay(2000)
-        popUpShown = true
-    }
-
-    // A conditional statement that displays the pop-up based on the boolean variable
-    if (popUpShown) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color(0x99000000))
-                .zIndex(5f)
-        ) {
-            PopUpContent()
-        }
-    }
-}
 
 

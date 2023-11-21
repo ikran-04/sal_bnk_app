@@ -36,11 +36,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.sal_bank_app.ui.theme.Sal_bank_appTheme
 import kotlinx.coroutines.delay
@@ -59,6 +61,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             Sal_bank_appTheme {
                 // A surface container using the 'background' color from the theme
@@ -87,10 +90,15 @@ fun Navigation(){
         composable("splash_screen"){
             SplashScreen(navController=navController)
         }
+        composable("cards_screen"){
+            PopUpScreen(navController=navController)
+        }
+
 
         composable("main_screen"){
            MainScreen()
         }
+
     }
 }
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -137,57 +145,63 @@ fun MainScreen(){
     }
     Scaffold(
         bottomBar = {
-            NavigationBar(
-                containerColor = Color.White,
-            ) {
+            val navBackStackEntry by navController.currentBackStackEntryAsState()
+            val currentRoute = navBackStackEntry?.destination?.route
 
-                items.forEachIndexed { index, item ->
-                    NavigationBarItem(
 
-                        selected = selectedItemIndex == index,
-                        onClick = {
-                            selectedItemIndex = index
-                            navController.navigate(item.title)
-                        },
-                        colors = NavigationBarItemDefaults.colors(
-                            indicatorColor = Color.White,
-                            selectedIconColor = Color(0xFF185DAB),
-                        ),
-                        icon = {
-                            if (index == 2) {
+            if (currentRoute !=  Screens.Loans.route && currentRoute != Screens.cards_screen.route ) {
+                NavigationBar(
+                    containerColor = Color.White,
+                ) {
 
-                                Box(
-                                    modifier = Modifier
-                                        .size(50.dp)
-                                        .clip(CircleShape)
-                                        .background(Color(0xFF185DAB)),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Icon(
-                                        tint = Color.White,
-                                        painter = items[2].selectedIcon,
-                                        contentDescription = "Home icon",
+                    items.forEachIndexed { index, item ->
+                        NavigationBarItem(
 
+                            selected = selectedItemIndex == index,
+                            onClick = {
+                                selectedItemIndex = index
+                                navController.navigate(item.title)
+                            },
+                            colors = NavigationBarItemDefaults.colors(
+                                indicatorColor = Color.White,
+                                selectedIconColor = Color(0xFF185DAB),
+                            ),
+                            icon = {
+                                if (index == 2) {
+
+                                    Box(
                                         modifier = Modifier
-                                            .size(28.dp)
+                                            .size(50.dp)
+                                            .clip(CircleShape)
+                                            .background(Color(0xFF185DAB)),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Icon(
+                                            tint = Color.White,
+                                            painter = items[2].selectedIcon,
+                                            contentDescription = "Home icon",
+
+                                            modifier = Modifier
+                                                .size(28.dp)
 //                                                                .tint(Color.White)
+                                        )
+                                    }
+                                } else {
+                                    Icon(
+                                        painter = if (index == selectedItemIndex) {
+                                            item.selectedIcon
+
+
+                                        } else item.unselectedIcon,
+                                        contentDescription = item.title,
+                                        modifier = Modifier
+                                            .size(20.dp)
                                     )
                                 }
-                            } else {
-                                Icon(
-                                    painter = if (index == selectedItemIndex) {
-                                        item.selectedIcon
-
-
-                                    } else item.unselectedIcon,
-                                    contentDescription = item.title,
-                                    modifier = Modifier
-                                        .size(20.dp)
-                                )
                             }
-                        }
 
-                    )
+                        )
+                    }
                 }
             }
 
@@ -200,7 +214,7 @@ fun MainScreen(){
             startDestination = Screens.Home.route
         ) {
 
-            composable(Screens.Home.route) { HomeScreen() }
+            composable(Screens.Home.route) { HomeScreee() }
             composable(Screens.Cards.route) { CardsScreen() }
             composable(Screens.Loans.route) { LoansScreen() }
 
@@ -230,7 +244,7 @@ fun SplashScreen(navController: NavController){
         modifier = Modifier.fillMaxSize()
 
     ){
-        Image(painter = painterResource(id = R.drawable.background), contentDescription = null)
+        Image(painter = painterResource(id = R.drawable.background), contentScale = ContentScale.FillBounds, contentDescription = null)
         Image(painter = painterResource(id = R.drawable.foreground), contentDescription = "logo", modifier = Modifier.scale(scale.value))
 
     }
