@@ -16,5 +16,6 @@ sealed class Screens(val route :String){
     object LoanCalculator :Screens("LoanCalculator")
     object cards_screen :Screens("cards_screen")
     object Scans :Screens("Scans")
+    object Murabaha :Screens("Murabaha")
     object poppup :Screens("poppup")
 }

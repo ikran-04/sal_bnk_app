@@ -31,6 +31,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -84,6 +85,8 @@ fun HomeScreee(){
         composable("LoanCalculator") { LoanCalculatorScreen(navController) }
         composable("ApprovedLoan") { ApprovedLoan(navController) }
         composable("Scan") { QrScreen() }
+        composable("Murabaha") { MurabahScreen() }
+        composable("Notifications") { NotificationsScreen() }
     }
 }
 @Composable
@@ -103,10 +106,12 @@ fun HomeScreen(navController: NavController){
                 Text(text = "John Doe!" ,fontWeight = FontWeight.Bold)
             }
 
+                IconButton(onClick = { navController.navigate("Notifications")}) {
+                    Icon(Icons.Outlined.Notifications,
+                        contentDescription =null ,
+                    )
+                }
 
-                Icon(Icons.Outlined.Notifications,
-                    contentDescription =null ,
-                    modifier = Modifier.clickable{ navController.navigate("Notifications") })
         }
 
 
@@ -157,7 +162,7 @@ fun HomeScreen(navController: NavController){
                     ){
                             IconBox(icon = painterResource(id = R.drawable.wallett), size = 50, route = "Wallet", navController = navController)
 
-                        IconBox(icon = painterResource(id = R.drawable.transfer), size = 50, route = "",navController = navController)
+                        IconBox(icon = painterResource(id = R.drawable.transfer), size = 50, route = "Murabaha",navController = navController)
                         IconBox(icon = painterResource(id = R.drawable.atm), size = 50 ,route = "",navController = navController)
                         IconBox(icon = painterResource(id = R.drawable.wallett), size = 50,route = "",navController = navController)
                     }
