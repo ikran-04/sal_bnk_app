@@ -222,9 +222,9 @@ fun CardSetting(text:String){
             onCheckedChange = { checked = it },
             colors = SwitchDefaults.colors(
                 checkedThumbColor = Color.White,
-                uncheckedThumbColor = Color.White,
+                uncheckedThumbColor = Color.Gray,
                 checkedTrackColor = Color( 0xFF185DAB),
-                uncheckedTrackColor = Color(0xFFF1F1F1)
+                uncheckedTrackColor = Color.Black
             )
 
         )

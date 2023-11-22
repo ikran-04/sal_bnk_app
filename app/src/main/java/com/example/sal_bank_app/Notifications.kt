@@ -104,7 +104,7 @@ fun NotificationsScreen(){
                 ) {
                     Column (
                         modifier = Modifier.padding(horizontal = 24.dp, vertical = 35.dp),
-                        verticalArrangement = Arrangement.spacedBy(15.dp)
+                        verticalArrangement = Arrangement.spacedBy(25.dp)
                     ) {
 
                         Text(text = "Today", fontSize = 16.sp , color = Color.Gray)

@@ -86,6 +86,7 @@ fun HomeScreee(){
         composable("ApprovedLoan") { ApprovedLoan(navController) }
         composable("Scan") { QrScreen() }
         composable("Murabaha") { MurabahScreen() }
+        composable("Anlytics") { AnlyticsScreen() }
         composable("Notifications") { NotificationsScreen() }
     }
 }
@@ -163,7 +164,7 @@ fun HomeScreen(navController: NavController){
                             IconBox(icon = painterResource(id = R.drawable.wallett), size = 50, route = "Wallet", navController = navController)
 
                         IconBox(icon = painterResource(id = R.drawable.transfer), size = 50, route = "Murabaha",navController = navController)
-                        IconBox(icon = painterResource(id = R.drawable.atm), size = 50 ,route = "",navController = navController)
+                        IconBox(icon = painterResource(id = R.drawable.atm), size = 50 ,route = "Anlytics",navController = navController)
                         IconBox(icon = painterResource(id = R.drawable.wallett), size = 50,route = "",navController = navController)
                     }
                 }

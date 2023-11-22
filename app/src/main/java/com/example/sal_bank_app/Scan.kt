@@ -44,6 +44,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
@@ -89,9 +90,10 @@ fun QrScreen() {
        ) {
            Image(painter = painterResource(id = R.drawable.left_arrow), contentDescription = null)
            Text(
-               text = "Pay", fontSize = 18.sp,
+               text = "Pay", fontSize = 24.sp,
                color = Color.Black,
                textAlign = TextAlign.Center,
+               fontWeight = FontWeight.Bold,
                modifier = Modifier.fillMaxWidth()
            )
 
