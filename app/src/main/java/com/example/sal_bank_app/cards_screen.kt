@@ -3,6 +3,7 @@ package com.example.sal_bank_app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,9 +13,13 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -38,8 +43,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.sal_bank_app.ui.theme.Sal_bank_appTheme
+import com.google.android.material.tabs.TabItem
 import kotlinx.coroutines.delay
 
+data class TabItem(
+    val title:String,
+
+
+    )
 class cards_screen : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,18 +68,48 @@ class cards_screen : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 
-
+                   CardsPopupScreen()
                 }
             }
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun CardsPopupScreen(){
+//        val navController = rememberNavController()
+//        NavHost(navController = navController, startDestination = "cards_screen") {
+//        composable("Cards") { CardsScreen() }
+//
+//    }
+
+
+
+    Column(modifier = Modifier
+        .fillMaxSize()
+    ) {
+        val pagerState = rememberPagerState(initialPage = 0)
+
+// Create a HorizontalPager with the pager state and the screen list
+        HorizontalPager(
+            state = pagerState,
+            pageCount = 2,
+            modifier = Modifier.fillMaxSize()
+        ) { index ->
+            when (index) {
+                0 -> PopUpScreen()
+                1 -> CardsScreen()
+            }
+        }
+
+
+    }
+
+}
 
 @Composable
-fun PopUpScreen(navController: NavController) {
-
-    var popUpShown by remember { mutableStateOf(false) }
+fun PopUpScreen() {
 
     @Composable
     fun PopUpContent() {
@@ -76,7 +117,6 @@ fun PopUpScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-//                .align(Alignment.Center)
                 .background(Color(0xFF185DAB))
                 .padding(16.dp),
             verticalArrangement = Arrangement.Center,
@@ -87,20 +127,9 @@ fun PopUpScreen(navController: NavController) {
             Text(  modifier = Modifier
 
                 .padding(20.dp),text = "Track And Manage Your Portfolio", fontSize = 35.sp, textAlign = TextAlign.Center, color = Color.White, fontWeight = FontWeight.Black , lineHeight = 1.5.em)
-            Button(onClick = {navController.navigate("Cards") }) {
-                Text(text = "Get Started!")
-            }
         }
     }
 
-
-    LaunchedEffect(Unit) {
-        delay(2000)
-        popUpShown = true
-    }
-
-    // A conditional statement that displays the pop-up based on the boolean variable
-    if (popUpShown) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -108,6 +137,7 @@ fun PopUpScreen(navController: NavController) {
                 .zIndex(5f)
         ) {
             PopUpContent()
-        }
     }
 }
+
+

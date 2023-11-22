@@ -77,14 +77,14 @@ fun NotificationsScreen(){
                         .fillMaxWidth()
                         .fillMaxHeight()
                         .padding(24.dp),
-                    horizontalArrangement = Arrangement.spacedBy(40.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Image(painter = painterResource(id = R.drawable.left_arr_white), contentDescription = null)
                     Text(
                         text = "Notifications", fontSize = 18.sp,
                         color = Color.White,
-                        textAlign = TextAlign.Center)
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth())
 
                 }
 

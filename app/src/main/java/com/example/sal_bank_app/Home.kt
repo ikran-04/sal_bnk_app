@@ -83,6 +83,7 @@ fun HomeScreee(){
         composable("Wallet") { Wallet(navController) }
         composable("LoanCalculator") { LoanCalculatorScreen(navController) }
         composable("ApprovedLoan") { ApprovedLoan(navController) }
+        composable("Scan") { QrScreen() }
     }
 }
 @Composable

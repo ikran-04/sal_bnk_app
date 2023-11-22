@@ -11,6 +11,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -91,11 +92,6 @@ fun Navigation(){
             SplashScreen(navController=navController)
         }
 
-        composable("cards_screen"){
-            PopUpScreen(navController=navController)
-        }
-
-
         composable("main_screen"){
            MainScreen()
         }
@@ -116,7 +112,7 @@ fun MainScreen(){
             unselectedIcon = painterResource(id = R.drawable.home),
         ),
         BottomNavigationItem(
-            title = "Cards",
+            title = "cards_screen",
 
             selectedIcon = painterResource(id = R.drawable.cards),
             unselectedIcon = painterResource(id = R.drawable.cards),
@@ -135,7 +131,7 @@ fun MainScreen(){
             unselectedIcon = painterResource(id = R.drawable.wallett),
         ),
         BottomNavigationItem(
-            title = "Notifications",
+            title = "Scans",
 
             selectedIcon = painterResource(id = R.drawable.settinggs),
             unselectedIcon = painterResource(id = R.drawable.settinggs),
@@ -150,8 +146,9 @@ fun MainScreen(){
             val currentRoute = navBackStackEntry?.destination?.route
 
 
-            if (currentRoute !=  Screens.Loans.route && currentRoute != Screens.cards_screen.route  && currentRoute != Screens.Finances.route && currentRoute != Screens.Notifications.route ) {
+            if (currentRoute !=  Screens.Loans.route && currentRoute != Screens.cards_screen.route  && currentRoute != Screens.Finances.route && currentRoute != Screens.Notifications.route && currentRoute != Screens.Scans.route ) {
                 NavigationBar(
+                    modifier = Modifier.height(56.dp),
                     containerColor = Color.White,
                 ) {
 
@@ -172,7 +169,7 @@ fun MainScreen(){
 
                                     Box(
                                         modifier = Modifier
-                                            .size(50.dp)
+                                            .size(40.dp)
                                             .clip(CircleShape)
                                             .background(Color(0xFF185DAB)),
                                         contentAlignment = Alignment.Center
@@ -183,7 +180,7 @@ fun MainScreen(){
                                             contentDescription = "Home icon",
 
                                             modifier = Modifier
-                                                .size(28.dp)
+                                                .size(23.dp)
 //                                                                .tint(Color.White)
                                         )
                                     }
@@ -220,6 +217,8 @@ fun MainScreen(){
             composable(Screens.Loans.route) { LoansScreen() }
             composable(Screens.Savings.route) { SavingsScreen() }
             composable(Screens.Notifications.route) { NotificationsScreen() }
+            composable(Screens.cards_screen.route) { CardsPopupScreen() }
+            composable(Screens.Scans.route) { QrScreen() }
             composable("Finances"){
                 FinancesCard(navController=navController)
             }

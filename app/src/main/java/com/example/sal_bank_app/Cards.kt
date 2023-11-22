@@ -122,7 +122,7 @@ fun CardsSecoundscreen(){
 
         //cards
         Column (modifier = Modifier.padding(horizontal = 24.dp)) {
-            val pagerState = rememberPagerState()
+            val pagerState = rememberPagerState(initialPage = 0)
             Column(
 //                      modifier = Modifier.fillMaxSize()
             )
