@@ -92,7 +92,9 @@ fun Navigation(){
         composable("splash_screen"){
             SplashScreen(navController=navController)
         }
-
+        composable("login"){
+            LoginScreen(navController=navController)
+        }
         composable("main_screen"){
            MainScreen()
         }
@@ -243,7 +245,7 @@ fun SplashScreen(navController: NavController){
         )
         )
         delay(100L)
-        navController.navigate("main_screen")
+        navController.navigate("login")
     }
     Box(
         contentAlignment = Alignment.Center,

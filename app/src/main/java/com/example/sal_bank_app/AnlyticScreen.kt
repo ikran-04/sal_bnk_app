@@ -106,8 +106,12 @@ fun AnlyticsScreen(){
                     .fillMaxWidth()
                     .horizontalScroll(scrollState),
             ) {
-                AnlyticalCard()
+//                AnlyticalCard()
 
+                Image(
+                    painter = painterResource(id = R.drawable.anlytic_card),
+                    contentDescription = null
+                )
                 Image(
                     painter = painterResource(id = R.drawable.anlytic_card),
                     contentDescription = null
