@@ -1,5 +1,6 @@
 package com.example.sal_bank_app
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,22 +9,28 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -57,7 +64,7 @@ fun AnlyticsScreen(){
         Row (
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(24.dp),
+                .padding(horizontal = 24.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
 
@@ -90,7 +97,7 @@ fun AnlyticsScreen(){
         Column (
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(24.dp)
+                .padding(top = 24.dp, start = 24.dp, end = 24.dp)
         ) {
 
             Text(text = "Usage Sammary")
@@ -99,10 +106,8 @@ fun AnlyticsScreen(){
                     .fillMaxWidth()
                     .horizontalScroll(scrollState),
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.anlytic_card),
-                    contentDescription = null
-                )
+                AnlyticalCard()
+
                 Image(
                     painter = painterResource(id = R.drawable.anlytic_card),
                     contentDescription = null
@@ -121,25 +126,66 @@ fun AnlyticsScreen(){
 
         Column (
             modifier = Modifier
-                .padding(horizontal = 24.dp)
+                .padding(24.dp)
         ) {
             Congratualtion()
         }
 
-        Chart(
-            data = mapOf(
 
-                Pair(0.5f,"Sun"),
-                Pair(0.6f,"Mon"),
-                Pair(0.2f,"Tue"),
-                Pair(0.7f,"Wed"),
-                Pair(0.4f,"Thu"),
-                Pair(0.6f,"Fri"),
-                Pair(0.2f,"Sat"),
 
-                ), max_value = 100
-        )
-      
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 24.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                verticalAlignment = Alignment.Bottom
+
+
+            ) {
+                Text(
+                    text = "+525.89",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color(0xFF185DAB)
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.increase),
+                    contentDescription = null
+                )
+                Text(text = "increase")
+            }
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 24.dp)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                val dataList = mutableListOf(30, 60, 90, 50, 70,10,20)
+                val floatValue = mutableListOf<Float>()
+                val datesList = mutableListOf("Sun", "Sat", "Mon", "Tue", "Wen","Thr","Fri")
+
+                dataList.forEachIndexed { index, value ->
+
+                    floatValue.add(index = index, element = value.toFloat() / dataList.max().toFloat())
+
+                }
+
+                BarGraph(
+                    graphBarData = floatValue,
+                    xAxisScaleData = datesList,
+                    barData_ = dataList,
+                    height = 200.dp,
+                    roundType = BarType.TOP_CURVED,
+                    barWidth = 8.dp,
+                    barColor = Color(0xFF185DAB),
+                    barArrangement = Arrangement.SpaceEvenly
+                )
+            }
+
+
+
+
     }
 
 }
@@ -147,7 +193,7 @@ fun AnlyticsScreen(){
 
 @Composable
 fun AnlyticalCard(){
-        
+
 }
 
 @Composable

@@ -361,17 +361,26 @@ fun LoanCalculatorScreen(navController: NavController){
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
            Column (
-               modifier = Modifier.zIndex(10f)
+               modifier = Modifier.background(Color.Red)
            ){
                NumberList()
            }
 
-               Divider(color = Color.Gray, modifier = Modifier
-                   .width(.5.dp)
-                   .fillMaxHeight()
-               )
 
-            MonthsList()
+            Column (
+                modifier = Modifier.background(Color.Blue)
+            ) {
+                Divider(color = Color.Gray, modifier = Modifier
+                    .width(.5.dp)
+                    .fillMaxHeight()
+                )
+            }
+            Column (
+                modifier = Modifier.background(Color.Green)
+            ) {
+                MonthsList()
+            }
+
         }
 
         Column (
@@ -589,7 +598,7 @@ fun NumberList() {
                                 fontWeight = FontWeight.Medium,
                                 modifier = Modifier
                                     .padding(8.dp)
-                                    .zIndex(10f)
+                                    .zIndex(1f)
 
                             )
 
@@ -645,7 +654,7 @@ fun MonthsList() {
                         Row (
                             horizontalArrangement = Arrangement.spacedBy(5.dp),
                             verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.zIndex(10f)
+                            modifier = Modifier.zIndex(2f)
                         ){
                             LineWithCircle2()
 
