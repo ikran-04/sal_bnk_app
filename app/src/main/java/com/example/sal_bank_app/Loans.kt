@@ -361,20 +361,17 @@ fun LoanCalculatorScreen(navController: NavController){
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
            Column (
-               modifier = Modifier.background(Color.Red)
+               modifier = Modifier.background(Color.Red).zIndex(2f)    .offset(x = 2.dp,
+                   y = 0.dp)
            ){
                NumberList()
            }
 
-
-            Column (
-                modifier = Modifier.background(Color.Blue)
-            ) {
-                Divider(color = Color.Gray, modifier = Modifier
-                    .width(.5.dp)
+                Divider(color = Color.Red, modifier = Modifier
+                    .width(5.dp)
                     .fillMaxHeight()
                 )
-            }
+
             Column (
                 modifier = Modifier.background(Color.Green)
             ) {
@@ -597,7 +594,7 @@ fun NumberList() {
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Medium,
                                 modifier = Modifier
-                                    .padding(8.dp)
+                                    .padding(10.dp)
                                     .zIndex(1f)
 
                             )
@@ -673,7 +670,7 @@ fun MonthsList() {
                             text = "${month } Months",
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Medium,
-                            modifier = Modifier.padding(8.dp)
+                            modifier = Modifier.padding(10.dp)
                         )
                     }
 
@@ -706,8 +703,8 @@ fun LineWithCircle() {
     val circleColor = Color(0xFF185DAB)
 
     // Define the size, color and text of the rectangle
-    val rectWidth = 200f
-    val rectHeight = 80f
+    val rectWidth = 300f
+    val rectHeight = 120f
     val rectColor = Color(0xFF185DAB)
     val rectText = "Hello"
 

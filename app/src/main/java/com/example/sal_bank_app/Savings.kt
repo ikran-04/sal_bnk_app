@@ -111,28 +111,42 @@ fun SavingsScreen(){
                 verticalArrangement = Arrangement.spacedBy(15.dp)
             ) {
 
-                Button(
+//                Button(
+//
+//                    onClick = {},
+//                    colors = ButtonDefaults.buttonColors(
+//                        containerColor = Color(0xFF185DAB), // dark blue
+//                        contentColor = Color.White // white
+//                    ),
+//                    shape = RoundedCornerShape(10.dp),
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .height(54.dp)
+//                ) {
+//                    Row (
+//                        modifier = Modifier.fillMaxWidth(),
+//                        horizontalArrangement =Arrangement.spacedBy(20.dp, Alignment.CenterHorizontally),
+//                        verticalAlignment = Alignment.CenterVertically
+//                    ) {
+//                        Icon(painter = painterResource(id = R.drawable.add_rounded), contentDescription =null )
+//                        Text("Saving Plant", fontSize = 16.sp)
+//                    }
+//
+//
+//                }
 
-                    onClick = {},
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF185DAB), // dark blue
-                        contentColor = Color.White // white
-                    ),
-                    shape = RoundedCornerShape(10.dp),
+                Row (
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(54.dp)
+                        .padding(24.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row (
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement =Arrangement.spacedBy(20.dp, Alignment.CenterHorizontally),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(painter = painterResource(id = R.drawable.add_rounded), contentDescription =null )
-                        Text("create new money saving plan", fontSize = 12.sp)
+                    Column {
+                        Text(text = "Savings", fontSize = 20.sp ,fontWeight = FontWeight.Bold )
+                        Text(text = "4 saving plans" ,fontSize = 12.sp , fontWeight = FontWeight.Light)
                     }
 
-
+                    Icon(painter = painterResource(id = R.drawable.add_card), contentDescription =null )
                 }
 
                 MianPocket(icon = painterResource(id = R.drawable.shopify))

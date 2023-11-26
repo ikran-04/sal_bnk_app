@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,9 +14,13 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
@@ -29,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -68,7 +74,13 @@ class cards_screen : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 
-                   CardsPopupScreen()
+                    val navController = rememberNavController()
+                    NavHost(navController = navController, startDestination = "Home_screen") {
+                        composable("Cards_Screen") { CardsPopupScreen(navController) }
+                        composable("Wallet") { Wallet(navController) }
+                        composable("LoanCalculator") { LoanCalculatorScreen(navController) }
+                        composable("ApprovedLoan") { ApprovedLoan(navController) }
+                    }
                 }
             }
         }
@@ -77,67 +89,48 @@ class cards_screen : ComponentActivity() {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CardsPopupScreen(){
-//        val navController = rememberNavController()
-//        NavHost(navController = navController, startDestination = "cards_screen") {
-//        composable("Cards") { CardsScreen() }
-//
-//    }
-
-
-
-    Column(modifier = Modifier
-        .fillMaxSize()
+fun CardsPopupScreen(navController: NavController){
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(Color(0xFF185DAB))
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(40.dp , alignment = Alignment.CenterVertically),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val pagerState = rememberPagerState(initialPage = 0)
 
-// Create a HorizontalPager with the pager state and the screen list
-        HorizontalPager(
-            state = pagerState,
-            pageCount = 2,
-            modifier = Modifier.fillMaxSize()
-        ) { index ->
-            when (index) {
-                0 -> PopUpScreen()
-                1 -> CardsScreen()
-            }
+        Image(painter = painterResource(id = R.drawable.cards_img), contentDescription = "Logo")
+        Text(  modifier = Modifier
+
+            .padding(20.dp),text = "Track And Manage Your Portfolio", fontSize = 35.sp, textAlign = TextAlign.Center, color = Color.White, fontWeight = FontWeight.Black , lineHeight = 1.5.em)
+        Box(modifier = Modifier.wrapContentSize().clickable{  navController.navigate("Cards")}) {
+            // Create another box that covers the icon
+            Box(
+                modifier = Modifier
+                    // Match the size of the icon
+                    .size(50.dp)
+                    // Clip the box to a circle shape
+                    .clip(RoundedCornerShape(50.dp))
+
+                    // Set the background color to white
+                    .background(Color.White)
+            )
+            // Create an icon from a vector drawable resource
+            Icon(
+                painter = painterResource(id = R.drawable.right),
+                contentDescription = "icon",
+                // Set the tint color of the icon
+                tint = Color.Unspecified,
+                // Set the size of the icon
+                modifier = Modifier
+                    .size(24.dp)
+                    .align(Alignment.Center)
+            )
         }
-
-
     }
 
 }
 
-@Composable
-fun PopUpScreen() {
-
-    @Composable
-    fun PopUpContent() {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .background(Color(0xFF185DAB))
-                .padding(16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            Image(painter = painterResource(id = R.drawable.cards_img), contentDescription = "Logo")
-            Text(  modifier = Modifier
-
-                .padding(20.dp),text = "Track And Manage Your Portfolio", fontSize = 35.sp, textAlign = TextAlign.Center, color = Color.White, fontWeight = FontWeight.Black , lineHeight = 1.5.em)
-        }
-    }
-
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color(0x99000000))
-                .zIndex(5f)
-        ) {
-            PopUpContent()
-    }
-}
 
 
