@@ -33,7 +33,7 @@ fun MurabahScreen(){
         ){
             Text(text = "Credit", fontSize = 18.sp,)
             Text(text = "we don’t charge and fees for spending & don’t mark up the rate", fontSize = 18.sp, color = Color.Gray)
-            Image(painter = painterResource(id = R.drawable.blance_bg), contentDescription = null, contentScale = ContentScale.FillBounds)
+            Image(painter = painterResource(id = R.drawable.mrbha), contentDescription = null, contentScale = ContentScale.Fit)
             Text(text = "All Loan Plans" , textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, modifier = Modifier.fillMaxWidth())
 
             Row (

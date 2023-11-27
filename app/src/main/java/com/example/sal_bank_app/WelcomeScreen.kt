@@ -116,7 +116,7 @@ fun Regestration(navController: NavController){
         verticalArrangement = Arrangement.spacedBy(20.dp, alignment = Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(painter = painterResource(id = R.drawable.getstated), contentDescription =null )
+        Image(painter = painterResource(id = R.drawable.reg_img), contentDescription =null )
         Text(text = "Registration", fontSize = 20.sp,textAlign = TextAlign.Center)
         Text(text = "Never a better time than now Enter Your Phone Number  to Verify\n" +
                 " Your account", fontSize = 15.sp, color = Color.Gray, textAlign = TextAlign.Center)

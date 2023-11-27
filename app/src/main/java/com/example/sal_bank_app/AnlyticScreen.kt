@@ -50,7 +50,9 @@ fun AnlyticsScreen(){
         R.drawable.anlytic_card,
         R.drawable.anlytic_card,
     )
-    Column {
+    Column (
+
+    ) {
         Row (
             modifier = Modifier
                 .fillMaxWidth()
