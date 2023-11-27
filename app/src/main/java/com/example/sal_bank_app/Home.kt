@@ -1,6 +1,7 @@
 package com.example.sal_bank_app
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -36,6 +37,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -62,6 +65,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.sal_bank_app.ui.theme.Sal_bank_appTheme
 
@@ -392,7 +396,9 @@ fun Wallet(navController: NavController){
 }
 
 @Composable
-fun IconBox(lable:String="", icon: Painter,bgClr:Color=Color(0xFF011F41), size: Int,route:String,navController: NavController){
+fun IconBox(lable:String="", icon: Painter,bgClr:Color=Color(0xFF1D4676), size: Int,route:String,navController: NavController){
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(2.dp)
@@ -401,7 +407,14 @@ fun IconBox(lable:String="", icon: Painter,bgClr:Color=Color(0xFF011F41), size: 
     ){
         Box(modifier = Modifier
             .wrapContentSize()
-            .clickable { navController.navigate(route) }) {
+            .clickable {
+                if(route != ""){
+                    navController.navigate(route)
+                }else{
+                    navController.navigate("Home_screen")
+
+                }
+            }) {
             // Create another box that covers the icon
             Box(
                 modifier = Modifier
