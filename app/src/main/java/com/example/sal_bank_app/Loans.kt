@@ -361,19 +361,18 @@ fun LoanCalculatorScreen(navController: NavController){
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
            Column (
-               modifier = Modifier.background(Color.Red).zIndex(2f)    .offset(x = 2.dp,
-                   y = 0.dp)
+               modifier = Modifier.fillMaxWidth(.5f)
            ){
                NumberList()
            }
 
-                Divider(color = Color.Red, modifier = Modifier
-                    .width(5.dp)
+                Divider(color = Color(0xFF185DAB), modifier = Modifier
+                    .width(1.dp)
                     .fillMaxHeight()
                 )
 
             Column (
-                modifier = Modifier.background(Color.Green)
+
             ) {
                 MonthsList()
             }
@@ -586,13 +585,15 @@ fun NumberList() {
                     )
                     if(number == 7000){
                         Row (
-                            horizontalArrangement = Arrangement.spacedBy(5.dp),
-                            verticalAlignment = Alignment.CenterVertically
+//                            horizontalArrangement = Arrangement.spacedBy(5.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier.zIndex(2f)
                         ){
                             Text(
                                 text = "${number / 1000}k",
                                 fontSize = 12.sp,
-                                fontWeight = FontWeight.Medium,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White,
                                 modifier = Modifier
                                     .padding(10.dp)
                                     .zIndex(1f)
@@ -608,7 +609,7 @@ fun NumberList() {
 
                         Text(
                             text = "${number / 1000}k",
-                            fontSize = 12.sp,
+                            fontSize = 10.sp,
                             fontWeight = FontWeight.Medium,
                             modifier = Modifier.padding(8.dp)
                         )
@@ -651,14 +652,14 @@ fun MonthsList() {
                         Row (
                             horizontalArrangement = Arrangement.spacedBy(5.dp),
                             verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.zIndex(2f)
+
                         ){
                             LineWithCircle2()
 
                             Text(
                                 text = "${month } Months",
                                 fontSize = 10.sp,
-                                fontWeight = FontWeight.Medium,
+                                fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(8.dp)
                             )
 
@@ -697,19 +698,19 @@ fun MonthsList() {
 @Composable
 fun LineWithCircle() {
     // Define the size and color of the line and the circle
-    val lineWidth = 400f
+    val lineWidth = 420f
     val lineColor = Color.Gray
     val circleRadius = 20f
     val circleColor = Color(0xFF185DAB)
 
     // Define the size, color and text of the rectangle
-    val rectWidth = 300f
+    val rectWidth = 280f
     val rectHeight = 120f
     val rectColor = Color(0xFF185DAB)
     val rectText = "Hello"
 
     // Use Canvas to draw custom shapes
-    Canvas(modifier = Modifier.width(100.dp)) {
+    Canvas(modifier = Modifier.width(200.dp)) {
         // Get the center of the canvas
         val center = Offset(size.width / 2, size.height / 2)
 
@@ -717,7 +718,7 @@ fun LineWithCircle() {
         val lineStart = center - Offset(lineWidth / 2, 0f)
         val lineEnd = center + Offset(lineWidth / 2, 0f)
 
-        val rectCenterLeft = center - Offset(lineWidth / 2, rectHeight/2)
+        val rectCenterLeft = center - Offset(lineWidth / 1, rectHeight/2)
         val rectBottomRight = center + Offset(rectWidth / 2, rectHeight / 2)
 
 
@@ -750,19 +751,19 @@ fun LineWithCircle() {
 @Composable
 fun LineWithCircle2() {
     // Define the size and color of the line and the circle
-    val lineWidth = 400f
+    val lineWidth = 280f
     val lineColor = Color.Gray
     val circleRadius = 20f
     val circleColor = Color(0xFF185DAB)
 
     // Define the size, color and text of the rectangle
-    val rectWidth = 200f
+    val rectWidth = 50f
     val rectHeight = 80f
     val rectColor = Color(0xFFF8B98D)
     val rectText = "Hello"
 
     // Use Canvas to draw custom shapes
-    Canvas(modifier = Modifier.width(100.dp)) {
+    Canvas(modifier = Modifier.width(100.dp).background(Color.Red)) {
         // Get the center of the canvas
         val center = Offset(size.width / 2, size.height / 2)
 

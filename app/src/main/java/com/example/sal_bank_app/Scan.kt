@@ -115,8 +115,8 @@ fun QrScreen() {
                ),
                shape = RoundedCornerShape(10.dp),
                modifier = Modifier
-                   .fillMaxWidth(.8f)
-                   .height(54.dp)
+                   .fillMaxWidth(.6f)
+                   .height(45.dp)
            ) {
 
                    Text("View qr code", fontSize = 12.sp)
