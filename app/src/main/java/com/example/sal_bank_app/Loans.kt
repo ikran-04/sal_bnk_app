@@ -179,9 +179,9 @@ fun ApllyLoan(navController: NavController){
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                         ) {
-                            IconBox(icon = painterResource(id = R.drawable.wallett), size = 50 , route = "",navController = navController)
-                            IconBox(icon = painterResource(id = R.drawable.transfer), size = 50, route = "",navController = navController)
-                            IconBox(icon = painterResource(id = R.drawable.atm), size = 50, route = "",navController = navController)
+                            IconBox(icon = painterResource(id = R.drawable.wallett), size = 50 , route = "ApllyLoan",navController = navController)
+                            IconBox(icon = painterResource(id = R.drawable.transfer), size = 50, route = "ApllyLoan",navController = navController)
+                            IconBox(icon = painterResource(id = R.drawable.atm), size = 50, route = "ApllyLoan",navController = navController)
                         }
                         Button(
                             onClick = {
@@ -304,27 +304,30 @@ fun LoanCalculatorScreen(navController: NavController){
         Row (
             modifier = Modifier
                 .padding(24.dp),
-            horizontalArrangement = Arrangement.spacedBy(20.dp,)
-        ){
-           Button(onClick = { navController.navigate("ApllyLoan") },
-                   colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
-           ) {
 
-               Image(painter = painterResource(id = R.drawable.left_arrow), contentDescription = null )
-           }
+        ){
+
+
+               Image(modifier = Modifier.clickable { navController.navigate("ApllyLoan")},painter = painterResource(id = R.drawable.left_arrow), contentDescription = null )
+
             Column (
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
                 Text(
+                    modifier = Modifier.fillMaxWidth(),
                     text = "Loan Calculator",
-                    fontSize = 22.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
                 )
                 Text(
+                    modifier = Modifier.fillMaxWidth(),
                     text = "How much do you want",
-                    fontSize = 14.sp,
+                    fontSize = 10.sp,
                     fontWeight = FontWeight.Light,
-                    color = Color.Gray
+                    color = Color.Gray,
+                    textAlign = TextAlign.Center
+
 
                 )
             }
@@ -335,7 +338,7 @@ fun LoanCalculatorScreen(navController: NavController){
                 .padding(horizontal = 24.dp),
             horizontalArrangement = Arrangement.spacedBy(20.dp)
         ){
-            var text by remember { mutableStateOf("\$3500.00") }
+            var text by remember { mutableStateOf("\$7000") }
 
             OutlinedTextField(
                 modifier = Modifier
@@ -350,7 +353,7 @@ fun LoanCalculatorScreen(navController: NavController){
             )
             OutlinedTextField(
 
-                value = "36 Months",
+                value = "24 Months",
                 onValueChange = {
                     text = it
                 },
@@ -594,21 +597,29 @@ fun NumberList() {
                     if(number == 7000){
                         Row (
 //                            horizontalArrangement = Arrangement.spacedBy(5.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                                    modifier = Modifier.zIndex(2f)
+//                            verticalAlignment = Alignment.CenterVertically,
+//                                    modifier = Modifier.zIndex(2f)
                         ){
-                            Text(
-                                text = "${number / 1000}k",
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White,
+                            Column (
                                 modifier = Modifier
-                                    .padding(10.dp)
-                                    .zIndex(1f)
+                                    .width(40.dp)
+                                    .height(40.dp)
+                                    .background(Color(0xFF185DAB))
+                            ){
 
-                            )
+                                Text(
+                                    text = "${number / 1000}k",
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = White,
+                                    modifier = Modifier
+                                        .padding(10.dp)
+                                        .zIndex(1f)
 
-                                LineWithCircle()
+                                )
+                            }
+
+//                                LineWithCircle()
 
 
                         }
@@ -642,9 +653,11 @@ fun MonthsList() {
     Column (
         modifier = Modifier
             .fillMaxHeight()
+            .fillMaxWidth()
 //            .padding(bottom = 50.dp)
         ,
         verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.End
     ){
         LazyColumn (
             horizontalAlignment = Alignment.End
@@ -662,14 +675,19 @@ fun MonthsList() {
                             verticalAlignment = Alignment.CenterVertically,
 
                         ){
-                            LineWithCircle2()
+//                            LineWithCircle2()
 
-                            Text(
-                                text = "${month } Months",
-                                fontSize = 10.sp,
-                                fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(8.dp)
-                            )
+                            Column (
+                                modifier = Modifier.width(100.dp).height(30.dp).background(Color(0xFF185DAB))
+                            ) {
+                                Text(
+                                    text = "${month} Months",
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(8.dp),
+                                    color = Color.White
+                                )
+                            }
 
 
                         }

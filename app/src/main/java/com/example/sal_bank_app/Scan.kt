@@ -15,6 +15,7 @@ import androidx.camera.view.LifecycleCameraController
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -55,6 +56,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.sal_bank_app.ui.theme.Sal_bank_appTheme
 import com.google.common.util.concurrent.ListenableFuture
 import java.util.concurrent.Executor
@@ -69,17 +74,28 @@ class Scan : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    QrScreen()
+
+
                 }
             }
         }
+    }
+}
+@Composable
+fun ScanScreen(){
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "Scans") {
+        composable("Scans") { QrScreen(navController) }
+        composable("main_screen") { MainScreen() }
+        composable("LoanCalculator") { LoanCalculatorScreen(navController) }
+        composable("ApprovedLoan") { ApprovedLoan(navController) }
     }
 }
 
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun QrScreen() {
+fun QrScreen(navController: NavController) {
 
    Column {
        Row(
@@ -88,7 +104,7 @@ fun QrScreen() {
                .padding(24.dp),
            verticalAlignment = Alignment.CenterVertically
        ) {
-           Image(painter = painterResource(id = R.drawable.left_arrow), contentDescription = null)
+           Image(modifier = Modifier.clickable { navController.navigate("main_screen") },painter = painterResource(id = R.drawable.left_arrow), contentDescription = null)
            Text(
                text = "Pay", fontSize = 24.sp,
                color = Color.Black,

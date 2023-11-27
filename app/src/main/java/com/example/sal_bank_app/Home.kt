@@ -94,7 +94,7 @@ fun HomeScreee(){
         composable("Wallet") { Wallet(navController) }
         composable("LoanCalculator") { LoanCalculatorScreen(navController) }
         composable("ApprovedLoan") { ApprovedLoan(navController) }
-        composable("Scan") { QrScreen() }
+        composable("Scan") { QrScreen(navController) }
         composable("Murabaha") { MurabahScreen() }
         composable("Anlytics") { AnlyticsScreen() }
         composable("Notifications") { NotificationsScreen() }
@@ -269,6 +269,8 @@ fun HomeScreen(navController: NavController){
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Wallet(navController: NavController){
+    val scrollState = rememberScrollState()
+
     Column {
         Box(
             modifier = Modifier.height(200.dp)
@@ -361,7 +363,7 @@ fun Wallet(navController: NavController){
                 .statusBarsPadding()
                 .navigationBarsPadding()
                 .imePadding()
-                .padding(10.dp),
+                .padding(10.dp).verticalScroll(scrollState),
 
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
@@ -397,8 +399,7 @@ fun Wallet(navController: NavController){
 
 @Composable
 fun IconBox(lable:String="", icon: Painter,bgClr:Color=Color(0xFF1D4676), size: Int,route:String,navController: NavController){
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
+
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(2.dp)

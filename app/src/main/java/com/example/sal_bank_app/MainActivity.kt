@@ -230,7 +230,7 @@ fun MainScreen(){
             composable(Screens.Savings.route) { SavingsScreen() }
             composable(Screens.Notifications.route) { NotificationsScreen() }
             composable(Screens.cards_screen.route) { CardsPopupScreen(navController=navController) }
-            composable(Screens.Scans.route) { QrScreen() }
+            composable(Screens.Scans.route) { ScanScreen() }
             composable("Finances"){
                 FinancesCard(navController=navController)
             }
