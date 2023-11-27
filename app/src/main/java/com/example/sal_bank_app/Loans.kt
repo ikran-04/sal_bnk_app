@@ -9,6 +9,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -108,6 +109,7 @@ fun LoansScreen(){
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "ApllyLoan") {
         composable("ApllyLoan") { ApllyLoan(navController) }
+        composable("main_screen") { MainScreen() }
         composable("LoanCalculator") { LoanCalculatorScreen(navController) }
         composable("ApprovedLoan") { ApprovedLoan(navController) }
     }
@@ -121,6 +123,7 @@ fun ApllyLoan(navController: NavController){
     val scrollState = rememberScrollState ()
 
     Column {
+
 
         Box(
             modifier = Modifier
@@ -143,8 +146,13 @@ fun ApllyLoan(navController: NavController){
 
 
                 Column  (
+                    modifier =  Modifier.fillMaxWidth(.8f),
                     verticalArrangement = Arrangement.spacedBy(40.dp)
                 ){
+                    Column {
+                            Image(modifier = Modifier.clickable { navController.navigate("main_screen") },painter = painterResource(id = R.drawable.right_blck), contentDescription = null )
+
+                    }
 
                     Column {
                         Text(
@@ -157,7 +165,7 @@ fun ApllyLoan(navController: NavController){
                             text = "$120.00",
                             fontSize = 38.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color.White
+                            color = Color.White,
                         )
 
 
@@ -169,11 +177,11 @@ fun ApllyLoan(navController: NavController){
                     ){
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceAround,
+                            horizontalArrangement = Arrangement.SpaceBetween,
                         ) {
-                            IconBox(icon = painterResource(id = R.drawable.wallett), size = 70 , route = "",navController = navController)
-                            IconBox(icon = painterResource(id = R.drawable.transfer), size = 70, route = "",navController = navController)
-                            IconBox(icon = painterResource(id = R.drawable.atm), size = 70, route = "",navController = navController)
+                            IconBox(icon = painterResource(id = R.drawable.wallett), size = 50 , route = "",navController = navController)
+                            IconBox(icon = painterResource(id = R.drawable.transfer), size = 50, route = "",navController = navController)
+                            IconBox(icon = painterResource(id = R.drawable.atm), size = 50, route = "",navController = navController)
                         }
                         Button(
                             onClick = {
@@ -181,15 +189,15 @@ fun ApllyLoan(navController: NavController){
                                 navController.navigate("LoanCalculator")
                             },
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = Color(0xFF011F41), // dark blue
+                                containerColor = Color(0xFF1D4676), // dark blue
                                 contentColor = Color.White // white
                             ),
                             shape = RoundedCornerShape(10.dp),
                             modifier = Modifier
-                                .fillMaxWidth(.9f)
+                                .fillMaxWidth()
                                 .height(60.dp)
                         ) {
-                            Text("Apply For Loan", fontSize = 18.sp)
+                            Text("Apply Loan", fontSize = 18.sp)
                         }
                     }
 
@@ -763,7 +771,9 @@ fun LineWithCircle2() {
     val rectText = "Hello"
 
     // Use Canvas to draw custom shapes
-    Canvas(modifier = Modifier.width(100.dp).background(Color.Red)) {
+    Canvas(modifier = Modifier
+        .width(100.dp)
+        .background(Color.Red)) {
         // Get the center of the canvas
         val center = Offset(size.width / 2, size.height / 2)
 

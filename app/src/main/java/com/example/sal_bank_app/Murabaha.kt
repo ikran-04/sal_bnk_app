@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -31,8 +33,8 @@ fun MurabahScreen(){
         ){
             Text(text = "Credit", fontSize = 18.sp,)
             Text(text = "we don’t charge and fees for spending & don’t mark up the rate", fontSize = 18.sp, color = Color.Gray)
-            Image(painter = painterResource(id = R.drawable.murbah_bnner), contentDescription = null, contentScale = ContentScale.FillBounds)
-            Text(text = "all loan plans" , textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, modifier = Modifier.fillMaxWidth())
+            Image(painter = painterResource(id = R.drawable.blance_bg), contentDescription = null, contentScale = ContentScale.FillBounds)
+            Text(text = "All Loan Plans" , textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, modifier = Modifier.fillMaxWidth())
 
             Row (
                 modifier = Modifier
@@ -47,7 +49,7 @@ fun MurabahScreen(){
                 ){
 
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 20.dp),
+                    modifier = Modifier.fillMaxWidth().padding( 10.dp),
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     Image(
@@ -69,7 +71,7 @@ fun MurabahScreen(){
                         .background(Color(0xFFFAFAFA)),
                 ){
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 20.dp),
+                    modifier = Modifier.fillMaxWidth().padding( 10.dp),
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     Image(
@@ -86,16 +88,17 @@ fun MurabahScreen(){
             }
             Row (
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Column (
                     modifier = Modifier
                         .fillMaxWidth(.5f)
                         .padding(10.dp)
-                        .background(Color(0xFFFAFAFA)),
+                        .background(Color(0xFFFAFAFA))
+                        .clip( RoundedCornerShape(10.dp)),
                 ){
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 20.dp),
+                    modifier = Modifier.fillMaxWidth().padding( 10.dp),
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     Image(
@@ -117,13 +120,12 @@ fun MurabahScreen(){
                         .background(Color(0xFFFAFAFA)),
                 ){
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 20.dp),
+
+                        modifier = Modifier.fillMaxWidth().padding( 10.dp),
                         horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.education),
+                            painter = painterResource(id = R.drawable.special),
                             contentDescription = null
                         )
                         Column {

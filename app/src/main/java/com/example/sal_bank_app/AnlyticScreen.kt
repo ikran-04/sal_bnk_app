@@ -59,7 +59,7 @@ fun AnlyticsScreen(){
             verticalAlignment = Alignment.CenterVertically
         ){
             Text(text = "Activity", fontSize = 18.sp, fontWeight = FontWeight.Medium)
-            Image(painter = painterResource(id = R.drawable.gird), contentDescription =null )
+            Image(modifier = Modifier.width(30.dp),painter = painterResource(id = R.drawable.gird), contentDescription =null )
         }
         Row (
             modifier = Modifier
@@ -74,7 +74,7 @@ fun AnlyticsScreen(){
                 verticalAlignment = Alignment.CenterVertically
 
             ){
-                Image(painter = painterResource(id = R.drawable.income_icon), contentDescription =null)
+                Image(modifier = Modifier.width(50.dp),painter = painterResource(id = R.drawable.income_icon), contentDescription =null)
                 Column {
                     Text(text = "Income" , fontSize = 10.sp,color = Color.Gray)
                     Text(text = "\$654,500.5", fontSize = 14.sp , )
@@ -85,7 +85,7 @@ fun AnlyticsScreen(){
                 verticalAlignment = Alignment.CenterVertically
 
             ){
-                Image(painter = painterResource(id = R.drawable.expenses_icon), contentDescription =null)
+                Image(modifier = Modifier.width(50.dp),painter = painterResource(id = R.drawable.expenses_icon), contentDescription =null)
                 Column {
                     Text(text = "Expenses" , fontSize = 10.sp, color = Color.Gray)
                     Text(text = "\$4,500", fontSize = 14.sp , )
@@ -179,7 +179,7 @@ fun AnlyticsScreen(){
                     graphBarData = floatValue,
                     xAxisScaleData = datesList,
                     barData_ = dataList,
-                    height = 200.dp,
+                    height = 150.dp,
                     roundType = BarType.TOP_CURVED,
                     barWidth = 8.dp,
                     barColor = Color(0xFF185DAB),
